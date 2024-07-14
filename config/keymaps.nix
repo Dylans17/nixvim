@@ -3,11 +3,90 @@
   #  See `:help vim.keymap.set()`
   # https://nix-community.github.io/nixvim/keymaps/index.html
   keymaps = [
+    # Clear Highlight
     {
       mode = "n";
       key = "<Esc>";
       action = "<cmd>nohlsearch<CR>";
+      options = {
+        desc = "Clear Highlights";
+      };
     }
+    # Move text in visual mode
+    {
+      mode = "v";
+      key = "J";
+      action = ":m '>+1<CR>gv=gv";
+      options = {
+        desc = "Move Selection Down";
+      };
+    }
+    {
+      mode = "v";
+      key = "K";
+      action = ":m '<-2<CR>gv=gv";
+      options = {
+        desc = "Move Selection Up";
+      };
+    }
+    # Move up and down while keeping the screen centered
+    {
+      mode = "n";
+      key = "<C-d>";
+      action = "<C-d>zz";
+      options = {
+        desc = "Move Screen Down";
+      };
+    }
+    {
+      mode = "n";
+      key = "<C-u>";
+      action = "<C-u>zz";
+      options = {
+        desc = "Move Screen Up";
+      };
+    }
+    # Paste without changing buffer
+    {
+      mode = "x";
+      key = "<leader>p";
+      action = ''"_dP'';
+      options = {
+        desc = "Clean Paste";
+      };
+    }
+    # yank into system clipboard
+    {
+      mode = ["n" "v"];
+      key = "<leader>y";
+      action = ''"+y'';
+      options = {
+        desc = "Yank to Clipboard";
+      };
+    }
+    {
+      mode = ["n" "v"];
+      key = "<leader>y";
+      action = ''"+y'';
+      options = {
+        desc = "Yank to Primary";
+      };
+    }
+    # disable these defaults
+    {
+      mode = "n";
+      key = "Q";
+      action = "<nop>";
+    }
+    {
+      mode = "n";
+      key = "q:";
+      action = "<nop>";
+    }
+    # TODO: 
+    #  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+    #  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
     # Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
     # for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
     # is not what someone will guess without a bit more experience.
