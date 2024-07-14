@@ -11,6 +11,7 @@
     ./treesitter.nix
     ./which-key.nix
     ./options.nix
+    ./oil.nix
     ./keymaps.nix
   ];
 
