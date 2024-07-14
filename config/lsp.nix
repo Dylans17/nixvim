@@ -106,6 +106,10 @@
           };
         };
       };
+
+      nixd = {
+        enable = true;
+      };
     };
 
     keymaps = {
