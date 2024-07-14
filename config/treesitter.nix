@@ -5,18 +5,19 @@
   # https://nix-community.github.io/nixvim/plugins/treesitter/index.html
   plugins.treesitter = {
     enable = true;
+    folding = false;
     
     settings = {
       ensureInstalled = [
         "bash"
-          "c"
-          "diff"
-          "html"
-          "lua"
-          "luadoc"
-          "markdown"
-          "vim"
-          "vimdoc"
+        "c"
+        "diff"
+        "html"
+        "lua"
+        "luadoc"
+        "markdown"
+        "vim"
+        "vimdoc"
       ];
 
       highlight = {
