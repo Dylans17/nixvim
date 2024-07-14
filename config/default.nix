@@ -3,6 +3,7 @@
     ./conform.nix
     ./colors.nix
     ./gitsigns.nix
+    ./harpoon.nix
     ./lsp.nix
     ./mini.nix
     ./nvim-cmp.nix
