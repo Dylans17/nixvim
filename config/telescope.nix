@@ -150,20 +150,5 @@
 	desc = "[S]earch [/] in Open Files";
       };
     }
-    # Shortcut for searching your Neovim configuration files
-    {
-      mode = "n";
-      key = "<leader>sn";
-      action.__raw = ''
-	function()
-	  require('telescope.builtin').find_files {
-	    cwd = vim.fn.stdpath 'config'
-	  }
-	end
-      '';
-      options = {
-	desc = "[S]earch [N]eovim files";
-      };
-    }
   ];
 }

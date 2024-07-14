@@ -94,22 +94,16 @@
       # tsserver = {
       #  enable = true;
       #}
+      # texlab = {
+      #   enable = true;
+      #}
 
       lua-ls = {
         enable = true;
-
-        # cmd = {
-        #};
-        # filetypes = {
-        #};
         settings = {
           completion = {
             callSnippet = "Replace";
           };
-          #diagnostics = {
-          #  disable = {
-          #    "missing-fields";
-          #};
         };
       };
     };
@@ -118,24 +112,47 @@
       # Diagnostic keymaps
       diagnostic = {
         "[d" = {
-          #mode = "n";
           action = "goto_prev";
           desc = "Go to previous [D]iagnostic message";
         };
         "]d" = {
-          #mode = "n";
           action = "goto_next";
           desc = "Go to next [D]iagnostic message";
         };
         "<leader>e" = {
-          #mode = "n";
           action = "open_float";
           desc = "Show diagnostic [E]rror messages";
         };
         "<leader>q" = {
-          #mode = "n";
           action = "setloclist";
           desc = "Open diagnostic [Q]uickfix list";
+        };
+      };
+
+      lspBuf = {
+        # Rename the variable under your cursor.
+        #  Most Language Servers support renaming across files, etc.
+        "<leader>rn" = {
+          action = "rename";
+          desc = "LSP: [R]e[n]ame";
+        };
+        # Execute a code action, usually your cursor needs to be on top of an error
+        # or a suggestion from your LSP for this to activate.
+        "<leader>ca" = {
+          action = "code_action";
+          desc = "LSP: [C]ode [A]ction";
+        };
+        # Opens a popup that displays documentation about the word under your cursor
+        #  See `:help K` for why this keymap.
+        "K" = {
+          action = "hover";
+          desc = "LSP: Hover Documentation";
+        };
+        # WARN: This is not Goto Definition, this is Goto Declaration.
+        #  For example, in C this would take you to the header.
+        "gD" = {
+          action = "declaration";
+          desc = "LSP: [G]oto [D]eclaration";
         };
       };
 
@@ -201,46 +218,17 @@
             desc = "LSP: [W]orkspace [S]ymbols";
           };
         }
+        {
+          mode = "n";
+          key = "<leader>ch";
+          action.__raw = "function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end";
+          options = {
+            desc = "Toggle Inlay Hints";
+          };
+        }
+
       ];
-
-      lspBuf = {
-        # Rename the variable under your cursor.
-        #  Most Language Servers support renaming across files, etc.
-        "<leader>rn" = {
-          #mode = "n"; TODO: FIGURE OUT HOW TO SET THIS
-          action = "rename";
-          desc = "LSP: [R]e[n]ame";
-        };
-        # Execute a code action, usually your cursor needs to be on top of an error
-        # or a suggestion from your LSP for this to activate.
-        "<leader>ca" = {
-          #mode = "n";
-          action = "code_action";
-          desc = "LSP: [C]ode [A]ction";
-        };
-        # Opens a popup that displays documentation about the word under your cursor
-        #  See `:help K` for why this keymap.
-        "K" = {
-          action = "hover";
-          desc = "LSP: Hover Documentation";
-        };
-        # WARN: This is not Goto Definition, this is Goto Declaration.
-        #  For example, in C this would take you to the header.
-        "gD" = {
-          action = "declaration";
-          desc = "LSP: [G]oto [D]eclaration";
-        };
-      };
     };
-
-    # LSP servers and clients are able to communicate to each other what features they support.
-    #  By default, Neovim doesn't support everything that is in the LSP specification.
-    #  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-    #  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-    # NOTE: This is done automatically by Nixvim when enabling cmp-nvim-lsp below is an example if you did want to add new capabilities
-    #capabilities = ''
-    #  capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-    #'';
 
     # This function gets run when an LSP attaches to a particular buffer.
     #   That is to say, every time a new file is opened that is associated with
@@ -248,20 +236,12 @@
     #   function will be executred to configure the current buffer
     # NOTE: This is an example of an attribute that takes raw lua
     onAttach = ''
-      -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-      -- to define small helper and utility functions so you don't have to repeat yourself.
-      --
-      -- In this case, we create a function that lets us more easily define mappings specific
-      -- for LSP related items. It sets the mode, buffer and description for us each time.
-      local map = function(keys, func, desc)
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
-      end
-
       -- The following two autocommands are used to highlight references of the
       -- word under the cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
       --
       -- When you move your cursor, the highlights will be cleared (the second autocommand).
+
       if client and client.server_capabilities.documentHighlightProvider then
         local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
         vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -283,16 +263,6 @@
             vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
           end,
         })
-      end
-
-      -- The following autocommand is used to enable inlay hints in your
-      -- code, if the language server you are using supports them
-      --
-      -- This may be unwanted, since they displace some of your code
-      if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-        map('<leader>th', function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-        end, '[T]oggle Inlay [H]ints')
       end
     '';
   };
