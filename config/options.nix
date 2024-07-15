@@ -7,9 +7,7 @@
   opts = {
     # Show line numbers
     number = true;
-    # You can also add relative line numbers, to help with jumping.
-    #  Experiment for yourself to see if you like it!
-    #relativenumber = true
+    relativenumber = true;
 
     # Enable mouse mode, can be useful for resizing splits for example!
     mouse = "a";
@@ -20,7 +18,7 @@
     # Enable break indent
     breakindent = true;
 
-    # Spaces for tabs
+    # Spaces for tabs for when sleuth doesn't get it
     expandtab = true;
     tabstop = 4;
     softtabstop = 4;

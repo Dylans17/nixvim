@@ -137,6 +137,22 @@
         desc = "Move focus to the upper window";
       };
     }
+    {
+      mode = "n";
+      key = "<C-w>Q";
+      action = ":q!<CR>";
+      options = {
+        desc = "Force quit a window";
+      };
+    }
+    {
+      mode = "n";
+      key = "<C-w>w<CR>";
+      action = ":w";
+      options = {
+        desc = "Write a window";
+      };
+    }
   ];
 
   # https://nix-community.github.io/nixvim/NeovimOptions/autoGroups/index.html
