@@ -147,8 +147,8 @@
     }
     {
       mode = "n";
-      key = "<C-w>w<CR>";
-      action = ":w";
+      key = "<C-w>w";
+      action = ":w<CR>";
       options = {
         desc = "Write a window";
       };
