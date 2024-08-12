@@ -97,9 +97,9 @@
       # tsserver = {
       #  enable = true;
       # };
-      # texlab = {
-      #   enable = true;
-      # }
+      texlab = {
+        enable = true;
+      };
 
       lua-ls = {
         enable = true;
