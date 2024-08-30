@@ -113,6 +113,10 @@
       nixd = {
         enable = true;
       };
+
+      ccls = {
+        enable = true;
+      };
     };
 
     keymaps = {
