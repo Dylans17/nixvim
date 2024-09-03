@@ -92,7 +92,7 @@
 	  desc = "[S]earch [R]esume";
 	};
       };
-      "<leader>s" = {
+      "<leader>so" = {
 	mode = "n";
 	action = "oldfiles";
 	options = {
