@@ -1,5 +1,4 @@
 { config, pkgs, inputs, ... }:
-
 {
 # Useful plugin to show you pending keybinds.
 # https://nix-community.github.io/nixvim/plugins/which-key/index.html
@@ -7,27 +6,27 @@
     enable = true;
 
 # Document existing key chains
-    registrations = {
-      "<leader>c" = {
-	name = "[C]ode";
-	_ = "which_key_ignore";
-      };
-      "<leader>d" = {
-	name = "[D]ocument";
-	_ = "which_key_ignore";
-      };
-      "<leader>r" = {
-	name = "[R]ename";
-	_ = "which_key_ignore";
-      };
-      "<leader>s" = {
-	name = "[S]earch";
-	_ = "which_key_ignore";
-      };
-      "<leader>w" = {
-	name = "[W]orkspace";
-	_ = "which_key_ignore";
-      };
-    };
+    settings.spec = [
+      {
+	__unkeyed = "<leader>c";
+	desc = "[C]ode";
+      }
+      {
+	__unkeyed = "<leader>d";
+	desc = "[D]ocument";
+      }
+      {
+	__unkeyed = "<leader>r";
+	desc = "[R]ename";
+      }
+      {
+	__unkeyed = "<leader>s";
+	desc = "[S]earch";
+      }
+      {
+	__unkeyed = "<leader>w";
+	desc = "[W]orkspace";
+      }
+    ];
   };
 }
