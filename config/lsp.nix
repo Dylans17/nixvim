@@ -101,6 +101,10 @@
         enable = true;
       };
 
+      ltex = {
+        enable = true;
+      };
+
       lua-ls = {
         enable = true;
         settings = {
