@@ -1,21 +1,16 @@
 let 
-  navfilekeymap = x: let s = toString (x + 1); in {name = s; value = "<leader>${s}";};
+  navfilekeymap = x: let s = toString (x + 1); in { mode = "n"; key = "<leader>${s}"; action.__raw = "function() require'harpoon':list():select(${s}) end"; };
 in
 {
   plugins.harpoon = {
     enable = true;
 
     enableTelescope = true;
-
-    keymapsSilent = true;
-
-    # plugins.harpoon.keymaps doesn't let us set keymap options yet
-    keymaps = {
-      addFile = "<leader>a";
-      toggleQuickMenu = "<leader>`";
-      navFile = builtins.listToAttrs (builtins.genList navfilekeymap 9);
-    };
   };
+  keymaps = [
+    { mode = "n"; key = "<leader>a"; action.__raw = "function() require'harpoon':list():add() end"; }
+    { mode = "n"; key = "<leader>`"; action.__raw = "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end"; }
+  ] ++ builtins.genList navfilekeymap 9;
   plugins.which-key.settings.spec = [
     {
       __unkeyed-1 = "<leader>a";
@@ -26,5 +21,5 @@ in
       desc = "Harpoon: List";
     }
   ] ++
-  builtins.genList (x: let s = navfilekeymap x; in {__unkeyed-1 = s.value; hidden = true;}) 9;
+  builtins.genList (x: let s = navfilekeymap x; in {__unkeyed-1 = s.key; hidden = true;}) 9;
 }

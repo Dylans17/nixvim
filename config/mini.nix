@@ -5,6 +5,7 @@
   # https://nix-community.github.io/nixvim/plugins/mini.html
   plugins.mini = {
     enable = true;
+    mockDevIcons = true;
 
     modules = {
       # Better Around/Inside textobjects
@@ -35,6 +36,8 @@
 
       # ... and there is more!
       # Check out: https://github.com/echasnovski/mini.nvim
+
+      icons.enable = true;
     };
 
   };
