@@ -126,7 +126,7 @@
         enable = true;
       };
 
-      java_language_server = {
+      jdtls = {
         enable = true;
       };
     };
